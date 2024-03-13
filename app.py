@@ -5,6 +5,7 @@ import utils
 import model_operations
 import glob
 from pathlib import Path
+import os
 
 
 st.set_page_config(layout='wide')
@@ -17,21 +18,21 @@ def main():
     with plot_details_expander:
         plot_details = plot_informations.get_plot_informations()
 
-        st.write(plot_details)
+        # st.write(plot_details)
 
     character_details_expander = st.expander(
         'Character Details', expanded=False)
     with character_details_expander:
         character_details = character_informations.get_character_informations()
 
-        st.write(character_details)
+        # st.write(character_details)
 
     chapter_details_expander = st.expander(
         'Chapeter Details', expanded=False)
     with chapter_details_expander:
         chapter_details = chapter_informations.get_chapter_informations()
 
-        st.write(chapter_details)
+        # st.write(chapter_details)
 
         if st.button('Generate'):
             plot_details['characters_count'] = len(character_details)
@@ -46,20 +47,20 @@ def main():
             plot_details['character_descriptions'] = character_descriptions
             system_prompt = utils.get_system_prompt(plot_details)
 
-            st.write(system_prompt)
+            # st.write(system_prompt)
 
             user_prompt = f'''Generate the chapter for the title {chapter_details[0].get('title')} with the dialogue proportion of {chapter_details[0].get('dialogue_proportion')} %'''
             chapter_text = model_operations.get_output_from_model(
                 system_prompt, user_prompt)
 
-            st.write(chapter_text)
+            # st.write(chapter_text)
 
-            st.write('---------')
+            # st.write('---------')
 
             Path(f'''{config.OUTPUT_FOLDER}{plot_details['plot']}''').mkdir(
                 parents=True, exist_ok=True)
 
-            chapter_file = f'''{chapter_details[0].get('title')}.txt'''
+            chapter_file = f'''1_{chapter_details[0].get('title')}.txt'''
 
             with open(f'''{config.OUTPUT_FOLDER}{plot_details['plot']}/{chapter_file}''', 'w') as f:
                 f.write(chapter_text)
@@ -81,22 +82,24 @@ def main():
                     system_prompt, user_prompt)
 
                 user_prompt = f'''Prev Chapter summarize {prev_chapter_summarize}. Generate the chapter for the title CHAPTER {index}. {chapter.get('title')} with the dialogue proportion of {chapter.get('dialogue_proportion')} %'''
-                st.write(user_prompt)
+                # st.write(user_prompt)
 
                 chapter_text = model_operations.get_output_from_model(
                     system_prompt, user_prompt)
 
-                chapter_file = f'''{chapter.get('title')}.txt'''
+                chapter_file = f'''{index}_{chapter.get('title')}.txt'''
 
                 with open(f'''{config.OUTPUT_FOLDER}{plot_details['plot']}/{chapter_file}''', 'w') as f:
                     f.write(chapter_text)
 
-                st.write(chapter_text)
+                # st.write(chapter_text)
 
-                st.write('---------')
+                # st.write('---------')
 
     chapter_files = glob.glob(
         f'''{config.OUTPUT_FOLDER}{plot_details['plot']}/*.txt''')
+
+    chapter_files.sort(key=lambda x: os.path.getctime(x))
 
     novel_content = ''
     for chapter_file in chapter_files:

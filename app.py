@@ -113,7 +113,8 @@ def main():
         with open(chapter_file) as f:
             novel_content += f.read()
             novel_content += '\n'
-            novel_content += '---'
+            novel_content += '___'
+            novel_content += '\n'
 
     st.markdown(novel_content)
 

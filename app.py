@@ -44,6 +44,8 @@ def main():
 
             character_descriptions = character_descriptions.rstrip(' and ')
 
+            st.write('Novel is generating...')
+
             plot_details['character_descriptions'] = character_descriptions
             system_prompt = utils.get_system_prompt(plot_details)
 
@@ -53,7 +55,7 @@ def main():
             chapter_text = model_operations.get_output_from_model(
                 system_prompt, user_prompt)
 
-            st.write('Chapter 1 is generated')
+            st.write('Chapter 1 is generated.')
 
             # st.write(chapter_text)
 
@@ -89,7 +91,7 @@ def main():
                 chapter_text = model_operations.get_output_from_model(
                     system_prompt, user_prompt)
 
-                st.write(f'Chapter {index} is generated')
+                st.write(f'Chapter {index} is generated.')
 
                 chapter_file = f'''{index}_{chapter.get('title')}.txt'''
 
@@ -109,7 +111,9 @@ def main():
     for chapter_file in chapter_files:
 
         with open(chapter_file) as f:
-            novel_content += f'\n {f.read()}'
+            novel_content += f.read()
+            novel_content += '\n'
+            novel_content += '---'
 
     st.markdown(novel_content)
 

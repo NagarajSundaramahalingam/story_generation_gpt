@@ -28,7 +28,7 @@ def main():
         # st.write(character_details)
 
     chapter_details_expander = st.expander(
-        'Chapeter Details', expanded=False)
+        'Chapter Details', expanded=False)
     with chapter_details_expander:
         chapter_details = chapter_informations.get_chapter_informations()
 
@@ -52,6 +52,8 @@ def main():
             user_prompt = f'''Generate the chapter for the title {chapter_details[0].get('title')} with the dialogue proportion of {chapter_details[0].get('dialogue_proportion')} %'''
             chapter_text = model_operations.get_output_from_model(
                 system_prompt, user_prompt)
+
+            st.write('Chapter 1 is generated')
 
             # st.write(chapter_text)
 
@@ -87,6 +89,8 @@ def main():
                 chapter_text = model_operations.get_output_from_model(
                     system_prompt, user_prompt)
 
+                st.write(f'Chapter {index} is generated')
+
                 chapter_file = f'''{index}_{chapter.get('title')}.txt'''
 
                 with open(f'''{config.OUTPUT_FOLDER}{plot_details['plot']}/{chapter_file}''', 'w') as f:
@@ -105,7 +109,7 @@ def main():
     for chapter_file in chapter_files:
 
         with open(chapter_file) as f:
-            novel_content += f.read()
+            novel_content += f'\n {f.read()}'
 
     st.markdown(novel_content)
 

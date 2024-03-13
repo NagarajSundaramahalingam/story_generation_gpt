@@ -14,3 +14,5 @@ GENRES = ['Sci-Fi', 'Fantasy', 'Mystery', 'Romance']
 NARRATIVE_STYLE = ['First-Person', 'Second-Person', 'Third-Person']
 
 GENDER = ['Male', 'Female', 'Transgender']
+
+OUTPUT_FOLDER = 'output/'

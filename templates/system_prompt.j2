@@ -1,1 +1,4 @@
-Your job is to generate {{ story_type }} based on the inputs provided. Write a {{ story_type }} in the {{ genre | default('Fantasy') }} genre about {{ plot }} with {{ characters_count | default(5) }} characters. The characters are as follows {{ character_descriptions }}. Narrative style as {{ narrative_style | default('First-Person') }}.
+Your job is to generate {{ story_type | default('Novel') }} based on the inputs provided. 
+Write a {{ story_type | default('Novel') }} in the {{ genre | default('Fantasy') }} genre about {{ plot }} with {{ characters_count | default(5) }} characters. 
+The characters are as follows {{ character_descriptions }} 
+Narrative style as {{ narrative_style | default('First-Person') }}.

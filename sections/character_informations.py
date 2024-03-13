@@ -78,20 +78,19 @@ def get_character_informations():
     for i, col in enumerate(cols):
         character_information = {}
         col.subheader(f'Character {i+1} Details')
-        character_information['name'] = col.text_input(
+        character_information[f'character {i+1} name'] = col.text_input(
             f'''Character {i+1}'s Name''', key=f'character_{i+1}_name')
-        character_information['gender'] = col.selectbox(
+        character_information[f'character {i+1} gender'] = col.selectbox(
             f'''Character {i+1}'s Gender''', config.GENDER, key=f'character_{i+1}_gender')
-        character_information['age'] = col.number_input(
+        character_information[f'character {i+1} age'] = col.number_input(
             f'''Character {i+1}'s Age''', min_value=1, step=1, key=f'character_{i+1}_age')
-        character_information['appearance'] = col.text_area(f'''Character {i+1}'s Appearance (Optional)''',
-                                                            key=f'character_{i+1}_appearance')
-        character_information['personality'] = col.text_area(f'''Character {i+1}'s Personality (Optional)''',
-                                                             key=f'character_{i+1}_personality')
-        character_information['others'] = col.text_area(f'''Character {i+1}'s Other details (Optional)''',
-                                                        key=f'character_{i+1}_other_details')
+        # character_information[f'character {i+1} appearance'] = col.text_area(f'''Character {i+1}'s Appearance (Optional)''',
+        #                                                                     key=f'character_{i+1}_appearance')
+        character_information[f'character {i+1} personality'] = col.text_area(f'''Character {i+1}'s Personality (Optional)''',
+                                                                              key=f'character_{i+1}_personality')
+        # character_information['others'] = col.text_area(f'''Character {i+1}'s Other details (Optional)''',
+        #                                                 key=f'character_{i+1}_other_details')
 
         character_informations.append(character_information)
-
 
     return character_informations

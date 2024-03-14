@@ -10,7 +10,7 @@ import datetime
 
 st.set_page_config(layout='wide')
 
-STORY_FOLDER = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+
 FIRST_CHAPTER_FILE = '1_CHAPTER.txt'
 
 
@@ -32,6 +32,9 @@ def main():
         chapter_details = chapter_informations.get_chapter_informations()
 
         if st.button('Generate'):
+
+            STORY_FOLDER = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+
             plot_details['characters_count'] = len(character_details)
 
             character_descriptions = ''
